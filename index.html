@@ -1,34 +1,159 @@
 <!DOCTYPE html>
 <html>
 <head>
+	 <meta charset="utf-8"/>
+
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<title>
 		Thank You Indonesia for 11 months of clean air!
 	</title>
 	<style>
 		body {
-			font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+			font-family: "Comic Sans MS", "Comic Sans", cursive;
 			text-align: center;
 			margin: 0 !important;
 		}
 		#div1 {
 			background:url(https://i.imgur.com/XcF8GJI.gif);
+      height:480px;
+		}
+		#div2 {
+			background:url(https://i.imgur.com/LvjbWkR.gif);
+      height:300px;
+		}
+		#div3 {
+			background:url(https://i.imgur.com/kur5ECv.png);
+      height:600px;
+		}
+		#div4 {
+			background:pink;
 		}
     #div1 img {
       max-width: 200px;
     }
+    h1 {
+    	font-size: 50px;
+    }
+    p {
+    	font-size: 24px;
+    }
+    #jusuf {
+    right: 0;
+    bottom: 0;
+    width: 20pc;
+    }
+    #reversed {
+    left: 0;
+    bottom: 0;
+    width: 20pc;
+    }
+    #text-box {
+    position: absolute;
+    right: 75pt;
+    bottom: 145px;
+    z-index: 99;
+    width: 190px;
+    font-size: 1pc;
+}
+#text-box-reversed {
+    left: 75pt;
+    bottom: 145px;
+    z-index: 99;
+    width: 190px;
+    font-size: 1pc;
+}
+#jusuf, #reversed, #text-box, #text-box-reversed {
+    position: absolute;
+}
+
 	</style>
 </head>
 <body>
+
 <div id="div1">
-<img src="https://i.imgur.com/a8UwikI.gif" style="margin-left:-30%">
-<img src="https://i.imgur.com/fHLHcPo.gif" style="margin-right:-30%"><br>
-	<h1 style="color:yellow">Thank You Indonesia for 11 months of clean air!</h1>
+<img src="https://i.imgur.com/a8UwikI.gif" style="margin-left:-30%;margin-top:5%">
+<img src="https://i.imgur.com/fHLHcPo.gif" style="margin-right:-30%;margin-top:5%"><br><br>
+	<h1 style="color:yellow"><blink>Thank You Indonesia for 11 months of clean air!</blink></h1>
 </div>
-<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<div id="div2">
+<br>
+<p>Indonesia has been thanked <span id="people"></span> times!</p>
+
+<div class="btnwrapper">
+<button onclick="buttonpress()" class="thankbtn">Thank Indonesia!</button>
+</div>
+
+<p>You have thanked Indonesia <span id="you">0</span> times!</p>
+
+
+<img id="jusuf" src="https://i.imgur.com/5Dfy1xl.png">
+<img id="reversed" src="https://i.imgur.com/BfXDsdO.png">
+
+<div id="text-box-reversed">
+    <p id="text-reversed"></p>
+  </div>
+
+  <div id="text-box">
+    <p id="text-normal"></p>
+  </div>
+</div>
+
+<div id="div3">
+<img src="https://i.imgur.com/BPXU9bM.gif">
+<p style="color:white">Indonesia Vice-President Jusuf Kalla (Juju) has now TWICE complained that Singaporeans have enjoyed clean, fresh air from their green environment and forests for 11 months but we have never thanked them (Indonesia).</p>
+
+<p style="color:white">"For 11 months, they (our neighbours) enjoyed nice air from Indonesia and they never thanked us. They have suffered because of the haze for one month and they get upset." - Indonesia Vice-President Jusuf Kalla (Juju)</p>
+<p style="color:white">Hey Juju, relak ah, dun sad ok, we are all uniting to show our appreciation for the months of fresh air!</p>
+	</div>
+
+<div id="div4"><br>
+<p>© 2019 Hi1307</p><br>
+</div>
+
 <script>
-	jQuery.get('https://stbus.azurewebsites.net/datahandler/counter.txt', function(data) {
-	return data;
+timesthanked = 0;
+var responses = ["Ju-Suf Power!","Kopi, Tea or Me?","Kalla Thank you!","Steady brudder!","I rock!","I heart you!","No worries Buddy!"];
+
+
+	$.get('https://stbus.azurewebsites.net/datahandler/counter.txt', function(data) {
+	var total = data;
+$("#people").prepend(total)
 	});
+
+	  (function() {
+    var blinks = document.getElementsByTagName('blink');
+    var visibility = 'hidden';
+    window.setInterval(function() {
+      for (var i = blinks.length - 1; i >= 0; i--) {
+        blinks[i].style.visibility = visibility;
+      }
+      visibility = (visibility === 'visible') ? 'hidden' : 'visible';
+    }, 400);
+  })();
+
+  function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function buttonpress() {
+timesthanked = timesthanked + 1;
+
+const Http = new XMLHttpRequest();
+const url='https://stbus.azurewebsites.net/datahandler/thankyou.php';
+Http.open("GET", url);
+Http.send();
+
+  var a = new Audio("thanks.mp3");
+  a.play();
+
+picker = getRandomInt(7)
+phrase = responses[picker]
+
+$("#text-normal").text(phrase)
+$("#text-reversed").text(phrase)
+$("#you").text(timesthanked)
+
+}
 </script>
 </body>
 </html>
