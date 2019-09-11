@@ -7,10 +7,23 @@
 	<style>
 		body {
 			font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+			text-align: center;
+			border-radius: 0 !important;
+		}
+		#div1 {
+			background:url(https://i.imgur.com/XcF8GJI.gif);
 		}
 	</style>
 </head>
 <body>
-
+<div id="div1">
+	<h1 style="color:yellow">Thank You Indonesia for 11 months of clean air!</h1>
+</div>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.get('https://stbus.azurewebsites.net/datahandler/counter.txt', function(data) {
+	return data;
+	});
+</script>
 </body>
 </html>
